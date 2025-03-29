@@ -1,0 +1,589 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-tertiary: #3d3d3d;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --border-color: #404040;
+    --hover-color: #404040;
+    --active-color: #2196F3;
+    --card-bg: #2d2d2d;
+    --card-border: #404040;
+    --bar-bg: #404040;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    height: 100vh;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    height: calc(100vh - 40px);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Hero Panel Styles */
+.hero-panel {
+    width: 300px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.hero-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 5px;
+}
+
+.hero-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    border-radius: 4px;
+    padding: 0;
+    cursor: move;
+    transition: all 0.2s;
+    width: fit-content;
+    min-width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+/* Tier-based background colors */
+.hero-card[data-tier="1"] {
+    background: linear-gradient(to right, #ffffff, var(--bg-secondary));
+}
+
+.hero-card[data-tier="2"] {
+    background: linear-gradient(to right, #4CAF50, var(--bg-secondary));
+}
+
+.hero-card[data-tier="3"] {
+    background: linear-gradient(to right, #2196F3, var(--bg-secondary));
+}
+
+.hero-card[data-tier="4"] {
+    background: linear-gradient(to right, #9C27B0, var(--bg-secondary));
+}
+
+.hero-card[data-tier="5"] {
+    background: linear-gradient(to right, #FFC107, var(--bg-secondary));
+}
+
+.hero-card:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+}
+
+.hero-info {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+    flex: 1;
+    min-height: 32px;
+    margin: 0;
+    padding: 0;
+}
+
+.hero-portrait {
+    width: 48px;
+    height: 32px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.name-cost {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 0;
+}
+
+.hero-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+.hero-cost {
+    font-size: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.stats-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 12px;
+}
+
+.hero-stats-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+}
+
+.stat-value {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Grid Container Styles */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 0; /* Important for flex child */
+}
+
+#heroGrid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 5px;
+    padding: 10px;
+    background-color: var(--bg-secondary);
+    border-radius: 5px;
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+}
+
+.grid-cell {
+    aspect-ratio: 1;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 5px;
+    cursor: default;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.grid-cell.occupied {
+    background-color: var(--card-bg);
+}
+
+.hero-piece {
+    width: 100%;
+    height: 100%;
+    cursor: move;
+    transition: all 0.2s ease;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-radius: 4px;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    user-select: none;
+}
+
+.hero-piece:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.hero-piece.dragging {
+    opacity: 0.5;
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+
+.grid-cell.drag-over {
+    background-color: #b3e5fc;
+    border: 2px dashed #2196F3;
+    transform: scale(1.05);
+}
+
+.grid-cell.drag-over .hero-piece {
+    transform: scale(1.05);
+}
+
+.grid-cell .hero-name {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+.grid-cell .hero-level {
+    font-size: 10px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.grid-cell .hero-stats {
+    width: 100%;
+}
+
+/* Controls Panel Styles */
+.controls-panel {
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    margin-top: auto;
+}
+
+.hero-controls {
+    margin-top: 20px;
+}
+
+.level-control {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.level-control button {
+    padding: 5px 15px;
+    font-size: 18px;
+    border: none;
+    background-color: var(--active-color);
+    color: var(--text-primary);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.level-control button:hover {
+    background-color: #1976D2;
+}
+
+.level-control button:disabled {
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+    cursor: not-allowed;
+}
+
+.level-control span {
+    font-size: 16px;
+    min-width: 40px;
+    text-align: center;
+}
+
+.stat-bar {
+    margin-bottom: 10px;
+}
+
+.bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: var(--bar-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.bar {
+    height: 100%;
+    transition: width 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bar-value {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.hp-bar {
+    background-color: #4CAF50;
+}
+
+.mana-bar {
+    background-color: #2196F3;
+}
+
+/* Alliance Colors */
+:root {
+    --beastColor: #b2411a;
+    --demonColor: #9e1d74;
+    --dragonColor: #ff511b;
+    --dwarfColor: #c29315;
+    --elementColor: teal;
+    --elfColor: #5f97d0;
+    --goblinColor: #b8c72c;
+    --humanColor: #02c89c;
+    --nagaColor: #483fa2;
+    --brawnyColor: #961f1c;
+    --savageColor: #a61b1b;
+    --trollColor: #9e6e4a;
+    --undeadColor: #7fa09a;
+    --assassinColor: #5a3d68;
+    --demonhunterColor: #8b008b;
+    --druidColor: #2e6340;
+    --hunterColor: #ff7652;
+    --knightColor: #ffe327;
+    --mageColor: #58dde9;
+    --mechColor: #fb8e14;
+    --inventorColor: #fb8e14;
+    --shamanColor: #6c985b;
+    --warlockColor: #e46ed5;
+    --warriorColor: #1c67b4;
+    --insectColor: #4d69ff;
+    --championColor: #ac89e0;
+    --brutalColor: #8b7765;
+    --healerColor: #4fd565;
+    --spiritBrotherColor: #636aa9;
+    --summonerColor: #f17214;
+    --vigilantColor: #5f97d0;
+    --voidColor: #695d6a;
+    --fallenColor: #e46ed5;
+    --wildColor: #2e6340;
+    --swordsmanColor: #c29315;
+    --rogueColor: #961f1c;
+    --poisonerColor: teal;
+    --magusColor: #4d69ff;
+}
+
+/* Alliance Indicators */
+.alliance-indicators {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+    margin: 0;
+}
+
+.alliance-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+.alliance-indicator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.alliance-indicator.active {
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.filter-option.active .alliance-indicator {
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+/* Alliance Color Classes */
+.alliance-beast { background-color: var(--beastColor); }
+.alliance-demon { background-color: var(--demonColor); }
+.alliance-dragon { background-color: var(--dragonColor); }
+.alliance-human { background-color: var(--humanColor); }
+.alliance-naga { background-color: var(--nagaColor); }
+.alliance-troll { background-color: var(--trollColor); }
+.alliance-undead { background-color: var(--undeadColor); }
+.alliance-hunter { background-color: var(--hunterColor); }
+.alliance-knight { background-color: var(--knightColor); }
+.alliance-mage { background-color: var(--mageColor); }
+.alliance-warrior { background-color: var(--warriorColor); }
+.alliance-champion { background-color: var(--championColor); }
+.alliance-brutal { background-color: var(--brutalColor); }
+.alliance-healer { background-color: var(--healerColor); }
+.alliance-spiritbrother { background-color: var(--spiritBrotherColor); }
+.alliance-summoner { background-color: var(--summonerColor); }
+.alliance-vigilant { background-color: var(--vigilantColor); }
+.alliance-void { background-color: var(--voidColor); }
+.alliance-fallen { background-color: var(--fallenColor); }
+.alliance-wild { background-color: var(--wildColor); }
+.alliance-swordsman { background-color: var(--swordsmanColor); }
+.alliance-rogue { background-color: var(--rogueColor); }
+.alliance-poisoner { background-color: var(--poisonerColor); }
+.alliance-magus { background-color: var(--magusColor); }
+.alliance-brawny { background-color: var(--brawnyColor); }
+.alliance-savage { background-color: var(--savageColor); }
+.alliance-assassin { background-color: var(--assassinColor); }
+
+/* Alliance Image Overlays */
+.alliance-beast::before { background-image: url('synergy_icons/beast_psd.png'); }
+.alliance-demon::before { background-image: url('synergy_icons/demon_psd.png'); }
+.alliance-dragon::before { background-image: url('synergy_icons/dragon_psd.png'); }
+.alliance-human::before { background-image: url('synergy_icons/human_psd.png'); }
+.alliance-naga::before { background-image: url('synergy_icons/naga_psd.png'); }
+.alliance-troll::before { background-image: url('synergy_icons/troll_psd.png'); }
+.alliance-undead::before { background-image: url('synergy_icons/undead_psd.png'); }
+.alliance-hunter::before { background-image: url('synergy_icons/hunter_psd.png'); }
+.alliance-knight::before { background-image: url('synergy_icons/knight_psd.png'); }
+.alliance-mage::before { background-image: url('synergy_icons/mage_psd.png'); }
+.alliance-warrior::before { background-image: url('synergy_icons/warrior_psd.png'); }
+.alliance-champion::before { background-image: url('synergy_icons/champion_psd.png'); }
+.alliance-brutal::before { background-image: url('synergy_icons/brutal_psd.png'); }
+.alliance-healer::before { background-image: url('synergy_icons/healer_psd.png'); }
+.alliance-spiritbrother::before { background-image: url('synergy_icons/spiritbrother_psd.png'); }
+.alliance-summoner::before { background-image: url('synergy_icons/summoner_psd.png'); }
+.alliance-vigilant::before { background-image: url('synergy_icons/vigilant_psd.png'); }
+.alliance-void::before { background-image: url('synergy_icons/void_psd.png'); }
+.alliance-fallen::before { background-image: url('synergy_icons/fallen_psd.png'); }
+.alliance-wild::before { background-image: url('synergy_icons/wild_psd.png'); }
+.alliance-swordsman::before { background-image: url('synergy_icons/swordsman_psd.png'); }
+.alliance-rogue::before { background-image: url('synergy_icons/rogue_psd.png'); }
+.alliance-poisoner::before { background-image: url('synergy_icons/poisoner_psd.png'); }
+.alliance-magus::before { background-image: url('synergy_icons/magus_psd.png'); }
+.alliance-brawny::before { background-image: url('synergy_icons/brawny_psd.png'); }
+.alliance-savage::before { background-image: url('synergy_icons/savage_psd.png'); }
+.alliance-assassin::before { background-image: url('synergy_icons/assassin_psd.png'); }
+
+/* Filter Panel Styles */
+.filter-panel {
+    margin-bottom: 15px;
+}
+
+.filter-panel h3 {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: auto;
+    text-align: left;
+}
+
+.filter-option:hover {
+    background-color: var(--hover-color);
+}
+
+.filter-option.active {
+    background-color: var(--active-color);
+}
+
+.filter-option .alliance-indicator {
+    margin: 0;
+    width: 32px;
+    height: 32px;
+}
+
+.filter-option span {
+    display: none;
+}
+
+.filter-logic {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.filter-logic label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    color: var(--text-primary);
+}
+
+.filter-logic input[type="radio"] {
+    margin: 0;
+}
+
+.tier-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 10px;
+}
+
+.tier-option {
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: auto;
+    text-align: left;
+    color: var(--text-primary);
+    font-size: 14px;
+    background-color: var(--bg-tertiary);
+    border-radius: 4px;
+}
+
+.tier-option:hover {
+    background-color: var(--hover-color);
+}
+
+.tier-option.active {
+    background-color: var(--active-color);
+}
+
+.tier-option span {
+    display: inline;
+} 
