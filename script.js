@@ -2,6 +2,55 @@
 let heroes = null;
 let selectedHero = null;
 
+// Board state tracking
+let boardState = {
+    heroes: new Map(), // Map of cell index to hero data
+    allianceCounts: new Map(), // Map of alliance to count
+};
+
+// Function to update alliance counts
+function updateAllianceCounts() {
+    // Reset alliance counts
+    boardState.allianceCounts.clear();
+    
+    // Count alliances from placed heroes
+    boardState.heroes.forEach(heroData => {
+        const alliances = heroData.hero.keywords.split(' ');
+        alliances.forEach(alliance => {
+            boardState.allianceCounts.set(
+                alliance,
+                (boardState.allianceCounts.get(alliance) || 0) + 1
+            );
+        });
+    });
+    
+    // Update alliance display
+    updateAllianceDisplay();
+}
+
+// Function to update alliance display
+function updateAllianceDisplay() {
+    const allianceDisplay = document.getElementById('allianceDisplay');
+    if (!allianceDisplay) return;
+    
+    let html = '<h3>Active Alliances</h3>';
+    html += '<div class="alliance-counts">';
+    
+    boardState.allianceCounts.forEach((count, alliance) => {
+        if (count > 0) {
+            html += `
+                <div class="alliance-count">
+                    <div class="alliance-indicator alliance-${alliance}"></div>
+                    <span>${alliance}: ${count}</span>
+                </div>
+            `;
+        }
+    });
+    
+    html += '</div>';
+    allianceDisplay.innerHTML = html;
+}
+
 // Fetch hero data from JSON file
 fetch('underlords_heroes.json')
     .then(response => response.json())
@@ -25,10 +74,16 @@ function initializeHeroList() {
     initializeFilters();
 }
 
-// Initialize the 6x6 grid
+// Initialize the grid
 function initializeGrid() {
     const grid = document.getElementById('heroGrid');
-    for (let i = 0; i < 36; i++) {  // Changed from 64 to 36 for 6x6 grid
+    const gridSize = 8; // Change this single number to adjust grid dimensions
+    
+    // Set the grid columns in CSS
+    grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+    
+    const numberOfCells = gridSize * gridSize;
+    for (let i = 0; i < numberOfCells; i++) {
         const cell = document.createElement('div');
         cell.className = 'grid-cell';
         cell.dataset.index = i;
@@ -52,8 +107,14 @@ function placeHero(cell, hero, level) {
     
     // Set cell properties
     cell.classList.add('occupied');
-    cell.dataset.heroId = Object.keys(heroes).find(id => heroes[id].id === hero.id);
+    const heroId = Object.keys(heroes).find(id => heroes[id].id === hero.id);
+    cell.dataset.heroId = heroId;
     cell.dataset.level = level;
+    
+    // Update board state
+    const cellIndex = cell.dataset.index;
+    boardState.heroes.set(cellIndex, { hero, level });
+    updateAllianceCounts();
     
     // Calculate stats
     const currentHP = hero.health[level-1];
@@ -110,8 +171,13 @@ function createHeroCard(hero) {
     // Hero name
     const nameCost = document.createElement('div');
     nameCost.className = 'name-cost';
+    const displayName = hero.displayName
+        .replace('#dac_hero_name_', '')
+        .split('_')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
     nameCost.innerHTML = `
-        <div class="hero-name">${hero.displayName.replace('#dac_hero_name_', '')}</div>
+        <div class="hero-name">${displayName}</div>
     `;
     heroInfo.appendChild(nameCost);
 
@@ -171,26 +237,39 @@ function handleDrop(e) {
         const targetHeroId = e.currentTarget.dataset.heroId;
         const targetHero = heroes[targetHeroId];
         const targetLevel = parseInt(e.currentTarget.dataset.level);
+        const targetIndex = e.currentTarget.dataset.index;
         
         // Place the target hero in the source cell
         if (sourceIndex) {
             const sourceCell = document.querySelector(`[data-index="${sourceIndex}"]`);
             placeHero(sourceCell, targetHero, targetLevel);
+            // Update board state for source cell
+            boardState.heroes.set(sourceIndex, { hero: targetHero, level: targetLevel });
         }
         
         // Place the dragged hero in the target cell
         placeHero(e.currentTarget, hero, level);
+        // Update board state for target cell
+        boardState.heroes.set(targetIndex, { hero, level });
     } else {
         // Place hero in empty cell
+        const targetIndex = e.currentTarget.dataset.index;
         placeHero(e.currentTarget, hero, level);
+        // Update board state for target cell
+        boardState.heroes.set(targetIndex, { hero, level });
         
         // Clear source cell if it was a grid cell
         if (sourceIndex) {
             const sourceCell = document.querySelector(`[data-index="${sourceIndex}"]`);
             sourceCell.classList.remove('occupied');
             sourceCell.innerHTML = '';
+            // Remove hero from board state
+            boardState.heroes.delete(sourceIndex);
         }
     }
+
+    // Update alliance counts
+    updateAllianceCounts();
 
     // Update selected hero if the dropped hero was selected
     if (selectedHero && selectedHero.cell.dataset.index === sourceIndex) {

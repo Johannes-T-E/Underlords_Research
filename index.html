@@ -1,78 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hero Management System</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <!-- Left Panel - Hero List -->
-        <div class="hero-panel">
-            <h2>Heroes</h2>
-            <!-- Filter Panel -->
-            <div class="filter-panel">
-                <h3>Filter by Alliance</h3>
-                <div class="filter-logic">
-                    <label>
-                        <input type="radio" name="allianceLogic" value="AND" checked> AND
-                    </label>
-                    <label>
-                        <input type="radio" name="allianceLogic" value="OR"> OR
-                    </label>
-                </div>
-                <div class="filter-options" id="allianceFilters">
-                    <!-- Alliance filters will be populated here -->
-                </div>
-                <h3>Filter by Tier</h3>
-                <div class="filter-options tier-filters" id="tierFilters">
-                    <!-- Tier filters will be populated here -->
-                </div>
-            </div>
-            <div class="hero-list" id="heroList">
-                <!-- Heroes will be populated here -->
-            </div>
-        </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Hero Management System</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
 
-        <!-- Main Content Area -->
-        <div class="main-content">
-            <!-- 8x8 Grid -->
+    <body>
+        <div class="container">
+            <!-- Left Panel - Hero List -->
+            <div class="hero-panel">
+                <h2>Heroes</h2>
+                <!-- Filter Panel -->
+                <div class="filter-panel">
+                    <h3>Filter by Alliance</h3>
+                    <div class="filter-logic">
+                        <label>
+                            <input
+                                type="radio"
+                                name="allianceLogic"
+                                value="AND"
+                                checked
+                            />
+                            AND
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="allianceLogic"
+                                value="OR"
+                            />
+                            OR
+                        </label>
+                    </div>
+                    <div class="filter-options" id="allianceFilters">
+                        <!-- Alliance filters will be populated here -->
+                    </div>
+                    <h3>Filter by Tier</h3>
+                    <div class="filter-options tier-filters" id="tierFilters">
+                        <!-- Tier filters will be populated here -->
+                    </div>
+                </div>
+                <div class="hero-list" id="heroList">
+                    <!-- Heroes will be populated here -->
+                </div>
+            </div>
+            <!-- Grid -->
             <div class="grid-container" id="heroGrid">
                 <!-- Grid cells will be created here -->
-            </div>
-
+                </div>
+            
             <!-- Controls Panel -->
             <div class="controls-panel">
                 <h2>Hero Controls</h2>
-                <div class="hero-info" id="selectedHeroInfo">
-                    <p>Select a hero to view and modify its properties</p>
-                </div>
-                <div class="hero-controls">
-                    <div class="level-control">
-                        <label>Level:</label>
-                        <button id="decreaseLevel" disabled>-</button>
-                        <span id="currentLevel">1</span>
-                        <button id="increaseLevel">+</button>
+                    <div class="hero-info" id="selectedHeroInfo">
+                        <p>Select a hero to view and modify its properties</p>
                     </div>
-                    <div class="hero-stats">
-                        <div class="stat-bar">
-                            <label>HP:</label>
-                            <div class="bar-container">
-                                <div class="bar hp-bar" id="hpBar"></div>
-                            </div>
+                    <div id="allianceDisplay">
+                        <h3>Active Alliances</h3>
+                        <div class="alliance-counts">
+                            <!-- Alliance counts will be populated here -->
                         </div>
-                        <div class="stat-bar">
-                            <label>Mana:</label>
-                            <div class="bar-container">
-                                <div class="bar mana-bar" id="manaBar"></div>
+                    </div>
+                    <div class="hero-controls">
+                        <div class="level-control">
+                            <label>Level:</label>
+                            <button id="decreaseLevel" disabled>-</button>
+                            <span id="currentLevel">1</span>
+                            <button id="increaseLevel">+</button>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="stat-bar">
+                                <label>HP:</label>
+                                <div class="bar-container">
+                                    <div class="bar hp-bar" id="hpBar"></div>
+                                </div>
+                            </div>
+                            <div class="stat-bar">
+                                <label>Mana:</label>
+                                <div class="bar-container">
+                                    <div
+                                        class="bar mana-bar"
+                                        id="manaBar"
+                                    ></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html> 
+        <script src="script.js"></script>
+    </body>
+</html>

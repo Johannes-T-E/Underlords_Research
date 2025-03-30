@@ -29,18 +29,23 @@ body {
 
 .container {
     display: flex;
-    gap: 20px;
+    flex-direction: row;
+    gap: 30px;
     height: calc(100vh - 40px);
-    max-width: 1400px;
+    width: 100%;
     margin: 0 auto;
+    padding: 0 20px;
+    justify-content: space-between;
 }
 
 /* Hero Panel Styles */
 .hero-panel {
-    width: 300px;
+    width: 450px;
+    min-width: 450px;
+    flex-shrink: 0;
     background-color: var(--bg-secondary);
-    border-radius: 8px;
-    padding: 15px;
+    border-radius: 12px;
+    padding: 20px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
@@ -50,12 +55,12 @@ body {
 .hero-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 12px;
+    margin-top: 20px;
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-right: 5px;
+    padding-right: 8px;
 }
 
 .hero-card {
@@ -70,30 +75,31 @@ body {
     min-width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 8px;
+    height: 48px;
 }
 
 /* Tier-based background colors */
 .hero-card[data-tier="1"] {
-    background: linear-gradient(to right, #ffffff, var(--bg-secondary));
+    background: linear-gradient(to right, #ffffff, #505050);
 }
 
 .hero-card[data-tier="2"] {
-    background: linear-gradient(to right, #4CAF50, var(--bg-secondary));
+    background: linear-gradient(to right, #4CAF50, #183619);
 }
 
 .hero-card[data-tier="3"] {
-    background: linear-gradient(to right, #2196F3, var(--bg-secondary));
+    background: linear-gradient(to right, #2196F3, #051836);
 }
 
 .hero-card[data-tier="4"] {
-    background: linear-gradient(to right, #9C27B0, var(--bg-secondary));
+    background: linear-gradient(to right, #9C27B0, #260a2a);
 }
 
 .hero-card[data-tier="5"] {
-    background: linear-gradient(to right, #FFC107, var(--bg-secondary));
+    background: linear-gradient(to right, #FFC107, #362902);
 }
 
 .hero-card:hover {
@@ -104,20 +110,20 @@ body {
 .hero-info {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    gap: 8px;
+    align-items: center;
+    gap: 12px;
     flex: 1;
-    min-height: 32px;
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 .hero-portrait {
-    width: 48px;
-    height: 32px;
+    width: 72px;
+    height: 48px;
     background-size: cover;
     background-position: center;
-    border-radius: 4px;
+    border-radius: 6px;
     border: 1px solid var(--border-color);
     margin: 0;
     padding: 0;
@@ -127,15 +133,22 @@ body {
 .name-cost {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    padding: 4px 0;
+    justify-content: center;
+    height: 100%;
+    padding: 0;
 }
 
 .hero-name {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
     color: #ffffff;
     white-space: nowrap;
+    text-shadow: 
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+    letter-spacing: 0.5px;
 }
 
 .hero-cost {
@@ -171,119 +184,42 @@ body {
 .main-content {
     flex: 1;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    min-height: 0; /* Important for flex child */
-}
-
-#heroGrid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 5px;
-    padding: 10px;
-    background-color: var(--bg-secondary);
-    border-radius: 5px;
-    width: 600px;
-    height: 600px;
-    margin: 0 auto;
-}
-
-.grid-cell {
-    aspect-ratio: 1;
-    background-color: var(--bg-tertiary);
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    padding: 5px;
-    cursor: default;
-    transition: all 0.2s ease;
-    position: relative;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+    min-height: 0;
     overflow: hidden;
+    padding: 0;
+    min-width: 0;
+    height: 100%;
+}
+
+.controls-panel {
+    width: 450px;
+    min-width: 450px;
+    flex-shrink: 0;
+    background-color: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    user-select: none;
-}
-
-.grid-cell.occupied {
-    background-color: var(--card-bg);
-}
-
-.hero-piece {
-    width: 100%;
-    height: 100%;
-    cursor: move;
-    transition: all 0.2s ease;
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
-    border-radius: 4px;
-    padding: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    user-select: none;
-}
-
-.hero-piece:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.hero-piece.dragging {
-    opacity: 0.5;
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-    z-index: 1000;
-}
-
-.grid-cell.drag-over {
-    background-color: #b3e5fc;
-    border: 2px dashed #2196F3;
-    transform: scale(1.05);
-}
-
-.grid-cell.drag-over .hero-piece {
-    transform: scale(1.05);
-}
-
-.grid-cell .hero-name {
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 2px;
-    text-align: center;
-}
-
-.grid-cell .hero-level {
-    font-size: 10px;
-    color: var(--text-secondary);
-    margin-bottom: 4px;
-    text-align: center;
-}
-
-.grid-cell .hero-stats {
-    width: 100%;
-}
-
-/* Controls Panel Styles */
-.controls-panel {
-    background-color: var(--bg-secondary);
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    margin-top: auto;
 }
 
 .hero-controls {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .level-control {
-    margin-bottom: 15px;
+    margin-bottom: 24px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
 }
 
 .level-control button {
-    padding: 5px 15px;
-    font-size: 18px;
+    padding: 8px 24px;
+    font-size: 24px;
     border: none;
     background-color: var(--active-color);
     color: var(--text-primary);
@@ -303,22 +239,22 @@ body {
 }
 
 .level-control span {
-    font-size: 16px;
-    min-width: 40px;
+    font-size: 24px;
+    min-width: 60px;
     text-align: center;
 }
 
 .stat-bar {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .bar-container {
     width: 100%;
-    height: 20px;
+    height: 30px;
     background-color: var(--bar-bg);
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: hidden;
-    margin-top: 5px;
+    margin-top: 8px;
 }
 
 .bar {
@@ -332,7 +268,7 @@ body {
 
 .bar-value {
     color: white;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     z-index: 1;
@@ -392,14 +328,17 @@ body {
 .alliance-indicators {
     display: flex;
     flex-wrap: nowrap;
-    gap: 4px;
+    gap: 6px;
     margin: 0;
+    padding: 0 6px;
+    align-items: center;
+    height: 100%;
 }
 
 .alliance-indicator {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     background-size: contain;
     background-repeat: no-repeat;
@@ -489,20 +428,20 @@ body {
 
 /* Filter Panel Styles */
 .filter-panel {
-    margin-bottom: 15px;
+    margin-bottom: 24px;
 }
 
 .filter-panel h3 {
-    font-size: 14px;
+    font-size: 18px;
     color: var(--text-secondary);
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .filter-options {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
-    margin-bottom: 10px;
+    gap: 6px;
+    margin-bottom: 15px;
 }
 
 .filter-option {
@@ -527,8 +466,8 @@ body {
 
 .filter-option .alliance-indicator {
     margin: 0;
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
 }
 
 .filter-option span {
@@ -537,9 +476,9 @@ body {
 
 .filter-logic {
     display: flex;
-    gap: 15px;
-    margin-bottom: 10px;
-    font-size: 12px;
+    gap: 24px;
+    margin-bottom: 15px;
+    font-size: 16px;
 }
 
 .filter-logic label {
@@ -562,16 +501,14 @@ body {
 }
 
 .tier-option {
-    display: flex;
-    align-items: center;
-    padding: 0 4px;
+    padding: 6px 12px;
+    font-size: 16px;
     background: none;
     border: none;
     cursor: pointer;
     width: auto;
     text-align: left;
     color: var(--text-primary);
-    font-size: 14px;
     background-color: var(--bg-tertiary);
     border-radius: 4px;
 }
@@ -586,4 +523,130 @@ body {
 
 .tier-option span {
     display: inline;
+}
+
+
+.grid-container {
+    flex: 0 1 auto;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-start;
+    padding: 15px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    max-width: 800px;
+    width: min(100%, calc(100vh - 60px));
+}
+
+#heroGrid {
+    display: grid;
+    gap: 8px;
+    padding: 15px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    width: 100%;
+    aspect-ratio: 1;
+    transform-origin: center;
+}
+
+.grid-cell {
+    aspect-ratio: 1;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    padding: 5px;
+    cursor: default;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.grid-cell.occupied {
+    background-color: var(--card-bg);
+}
+
+.hero-piece {
+    width: 100%;
+    height: 100%;
+    cursor: move;
+    transition: all 0.2s ease;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-radius: 4px;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    user-select: none;
+}
+
+.hero-piece:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.hero-piece.dragging {
+    opacity: 0.5;
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+
+.grid-cell.drag-over {
+    background-color: #b3e5fc;
+    border: 2px dashed #2196F3;
+    transform: scale(1.05);
+}
+
+.grid-cell.drag-over .hero-piece {
+    transform: scale(1.05);
+}
+
+.grid-cell .hero-name {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+.grid-cell .hero-level {
+    font-size: 10px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.grid-cell .hero-stats {
+    width: 100%;
+}
+
+.alliance-counts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.alliance-count {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--bg-tertiary);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.alliance-count .alliance-indicator {
+    width: 24px;
+    height: 24px;
+}
+
+.alliance-count span {
+    color: var(--text-primary);
+    font-size: 14px;
 } 
