@@ -1,0 +1,306 @@
+{
+    "Assassin": {
+        "tiers": [
+            {
+                "units_required": 3,
+                "bonus": "Assassins gain a 15% chance to Critical Hit for 325% Damage. On a crit, the target is WOUNDED and healing taken is reduced by 75% for 3 seconds."
+            },
+            {
+                "units_required": 6,
+                "bonus": "Assassins gain a 25% chance to Critical Hit for 400% Damage. On a crit, the target is WOUNDED and healing taken is reduced by 100% for 3 seconds."
+            }
+        ]
+    },
+    "Brawny": {
+        "tiers": [
+            {
+                "units_required": 2,
+                "bonus": "All Brawny units gain +5 maximum HP for each kill by any of your team Brawny units throughout the game. Bonus is multiplied by star level of Brawny unit. Summons count as 0.25 kill. (HP bonus varies by game mode)."
+            },
+            {
+                "units_required": 4,
+                "bonus": "All Brawny units gain +10 maximum HP for each kill by any of your team Brawny units throughout the game. Bonus is multiplied by star level of Brawny unit. Summons count as 0.25 kill. (HP bonus varies by game mode)."
+            }
+        ]
+    },
+    "Brute": {
+        "tiers": [
+            {
+                "units_required": 2,
+                "bonus": "Whenever a Brute attacks an enemy it applies a -30% damage debuff for 4 seconds. When the debuff is initially applied it deals 80 damage. Brutes prefer to attack enemies that do not have the debuff."
+            },
+            {
+                "units_required": 4,
+                "bonus": "Whenever a Brute attacks an enemy it applies a -50% damage debuff for 4 seconds. When the debuff is initially applied it deals 120 damage. Brutes prefer to attack enemies that do not have the debuff."
+            }
+        ]
+    },
+    "Champion": {
+        "tiers": [
+            {
+                "units_required": 1,
+                "bonus": "Champions receive all Alliance bonuses. In addition, they gain 3% extra damage and 8% max health per active Alliance."
+            }
+        ]
+    },
+    "Demon": {
+        "tiers": [
+            {
+                "units_required": 1,
+                "bonus": "Whenever a Demon casts a spell, for 4 seconds allied Demons are silenced and the caster gains +50% bonus Pure damage for each allied Demon."
+            }
+        ]
+    },
+    "Dragon": {
+        "tiers": [
+            {
+                "units_required": 2,
+                "bonus": "All dragon units unlock an additional draconic ability."
+            }
+        ]
+    },
+    "Fallen": {
+        "tiers": [
+            {
+                "units_required": 2,
+                "bonus": "When each Fallen unit first dies, allies within 2 cells are healed for 250 HP and gain +10% bonus damage to attacks and spells. A Fallen unit can revive 0 times per combat, resurrecting with 40% health."
+            },
+            {
+                "units_required": 4,
+                "bonus": "When each Fallen unit first dies, allies within 2 cells are healed for 250 HP and gain +10% bonus damage to attacks and spells. A Fallen unit can revive 1 time per combat, resurrecting with 40% health."
+            }
+        ]
+    },
+    "Healer": {
+        "tiers": [
+            {
+                "units_required": 2,
+                "bonus": "All friendly healing is amplified by 25%."
+            },
+            {
+                "units_required": 3,
+                "bonus": "All friendly healing is amplified by 45%."
+            }
+        ]
+    },
+    "Heartless": {
+        "tiers": [
+            {
+                "units_required": 2,
+                "bonus": "All Enemies lose 4 Armor."
+            },
+            {
+                "units_required": 4,
+                "bonus": "All Enemies lose 9 Armor."
+            },
+            {
+                "units_required": 6,
+                "bonus": "All Enemies lose 15 Armor."
+            }
+        ]
+    },
+    "Human": {
+        "tiers": [
+            {
+                "units_required": 2,
+                "bonus": "Allies generate 4 mana per second."
+            },
+            {
+                "units_required": 4,
+                "bonus": "Allies generate 8 mana per second."
+            },
+            {
+                "units_required": 6,
+                "bonus": "Allies generate 15 mana per second."
+            }
+        ]
+    },
+    "Hunter": {
+        "tiers": [
+            {
+                "units_required": 3,
+                "bonus": "All Hunters have a 30% chance of quickly performing 2 attacks."
+            },
+            {
+                "units_required": 6,
+                "bonus": "All Hunters have a 38% chance of quickly performing 3 attacks."
+            }
+        ]
+    },
+    "Knight": {
+        "tiers": [
+            {
+                "units_required": 2,
+                "bonus": "Knight units take 15% less physical and magical damage. If attacked from the front, and within 1 cell of an allied knight, Knight units take an additional 15% less physical and magical damage."
+            },
+            {
+                "units_required": 4,
+                "bonus": "Knight units take 20% less physical and magical damage. If attacked from the front, and within 1 cell of an allied knight, Knight units take an additional 20% less physical and magical damage."
+            },
+            {
+                "units_required": 6,
+                "bonus": "Knight units take 25% less physical and magical damage. If attacked from the front, and within 1 cell of an allied knight, Knight units take an additional 25% less physical and magical damage."
+            }
+        ]
+    },
+    "Mage": {
+        "tiers": [
+            {
+                "units_required": 3,
+                "bonus": "Enemies take 35% more Magic damage."
+            },
+            {
+                "units_required": 6,
+                "bonus": "Enemies take 70% more Magic damage."
+            }
+        ]
+    },
+    "Magus": {
+        "tiers": [
+            {
+                "units_required": 1,
+                "bonus": "Once per battle, when a Magus unit's health drops below 50%, the unit becomes invulnerable and unable to attack for 3 seconds."
+            }
+        ]
+    },
+    "Poisoner": {
+        "tiers": [
+            {
+                "units_required": 3,
+                "bonus": "Attacks from Poisoners apply stacks of Poison. Enemies lose 7 Attack Speed per stack of Poison."
+            }
+        ]
+    },
+    "Rogue": {
+        "tiers": [
+            {
+                "units_required": 2,
+                "bonus": "Allied Rogue units gain 20% evasion. Whenever a Rogue unit evades an attack, it gains +10 Attack Damage."
+            },
+            {
+                "units_required": 4,
+                "bonus": "Allied Rogue units gain 40% evasion. Whenever a Rogue unit evades an attack, it gains +20 Attack Damage."
+            }
+        ]
+    },
+    "Savage": {
+        "tiers": [
+            {
+                "units_required": 2,
+                "bonus": "Allied Savage units gain +5 Attack Damage each time they land an attack."
+            },
+            {
+                "units_required": 4,
+                "bonus": "Allied Savage units and all allied summons of any alliance gain +8 Attack Damage each time they land an attack."
+            },
+            {
+                "units_required": 6,
+                "bonus": "All allied units gain +13 Attack Damage each time they land an attack."
+            }
+        ]
+    },
+    "Scaled": {
+        "tiers": [
+            {
+                "units_required": 2,
+                "bonus": "Allies gain +30% Magic Resistance."
+            },
+            {
+                "units_required": 4,
+                "bonus": "Allies gain +55% Magic Resistance."
+            }
+        ]
+    },
+    "Shaman": {
+        "tiers": [
+            {
+                "units_required": 1,
+                "bonus": "When combat starts, a Small Wolf is summoned to help."
+            },
+            {
+                "units_required": 2,
+                "bonus": "When combat starts, a Wildwing Hatchling is summoned to help."
+            },
+            {
+                "units_required": 4,
+                "bonus": "When combat starts, a Black Dragon is summoned to help."
+            }
+        ]
+    },
+    "Spirit": {
+        "tiers": [
+            {
+                "units_required": 3,
+                "bonus": "When a Spirit casts an ability they enter a charged state. When 3 Spirits are in a charged state they perform the forbidden technique of the triangular Delta Slam, each dealing 130 magic damage to all enemies caught inside and applying their elemental effects for 1.5 seconds. Damage and effect duration are multiplied by 1.5 at 2* and 2 at 3*"
+            }
+        ]
+    },
+    "Summoner": {
+        "tiers": [
+            {
+                "units_required": 2,
+                "bonus": "Allied summoned units gain +20% damage."
+            },
+            {
+                "units_required": 4,
+                "bonus": "Allied summoned units gain +40% damage."
+            }
+        ]
+    },
+    "Swordsman": {
+        "tiers": [
+            {
+                "units_required": 3,
+                "bonus": "Each Swordsman unit gains +10% bonus damage for each enemy unit adjacent to it."
+            },
+            {
+                "units_required": 6,
+                "bonus": "Each Swordsman unit gains +25% bonus damage for each enemy unit adjacent to it."
+            }
+        ]
+    },
+    "Troll": {
+        "tiers": [
+            {
+                "units_required": 2,
+                "bonus": "All Troll units gain +40 Attack Speed and other Allies gain +20 Attack Speed."
+            },
+            {
+                "units_required": 4,
+                "bonus": "All Troll units gain +70 Attack Speed and other Allies gain +40 Attack Speed."
+            }
+        ]
+    },
+    "Vigilant": {
+        "tiers": [
+            {
+                "units_required": 2,
+                "bonus": "Whenever an enemy unit casts a spell, allied Vigilant units target that enemy if it is within their range. The damage of the next attack against this target is increased by 40%."
+            },
+            {
+                "units_required": 4,
+                "bonus": "Whenever an enemy unit casts a spell, all allied units target that enemy if it is within their range. The damage of the next attack against this target is increased by 50%."
+            }
+        ]
+    },
+    "Void": {
+        "tiers": [
+            {
+                "units_required": 3,
+                "bonus": "All allied heroes have a 40% chance to deal an additional 4% of the target\u2019s Max Health as Pure Damage. This effect can only occur once every 0.5 seconds."
+            }
+        ]
+    },
+    "Warrior": {
+        "tiers": [
+            {
+                "units_required": 3,
+                "bonus": "All Warriors gain +10 Armor."
+            },
+            {
+                "units_required": 6,
+                "bonus": "All Warriors gain +25 Armor."
+            }
+        ]
+    }
+}

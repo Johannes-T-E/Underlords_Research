@@ -292,11 +292,11 @@ body {
     --elfColor: #5f97d0;
     --goblinColor: #b8c72c;
     --humanColor: #02c89c;
-    --nagaColor: #483fa2;
+    --scaledColor: #483fa2;
     --brawnyColor: #961f1c;
     --savageColor: #a61b1b;
     --trollColor: #9e6e4a;
-    --undeadColor: #7fa09a;
+    --heartlessColor: #7fa09a;
     --assassinColor: #5a3d68;
     --demonhunterColor: #8b008b;
     --druidColor: #2e6340;
@@ -310,9 +310,9 @@ body {
     --warriorColor: #1c67b4;
     --insectColor: #4d69ff;
     --championColor: #ac89e0;
-    --brutalColor: #8b7765;
+    --bruteColor: #8b7765;
     --healerColor: #4fd565;
-    --spiritBrotherColor: #636aa9;
+    --spiritColor: #636aa9;
     --summonerColor: #f17214;
     --vigilantColor: #5f97d0;
     --voidColor: #695d6a;
@@ -373,17 +373,17 @@ body {
 .alliance-demon { background-color: var(--demonColor); }
 .alliance-dragon { background-color: var(--dragonColor); }
 .alliance-human { background-color: var(--humanColor); }
-.alliance-naga { background-color: var(--nagaColor); }
+.alliance-scaled { background-color: var(--scaledColor); }
 .alliance-troll { background-color: var(--trollColor); }
-.alliance-undead { background-color: var(--undeadColor); }
+.alliance-heartless { background-color: var(--heartlessColor); }
 .alliance-hunter { background-color: var(--hunterColor); }
 .alliance-knight { background-color: var(--knightColor); }
 .alliance-mage { background-color: var(--mageColor); }
 .alliance-warrior { background-color: var(--warriorColor); }
 .alliance-champion { background-color: var(--championColor); }
-.alliance-brutal { background-color: var(--brutalColor); }
+.alliance-brute { background-color: var(--bruteColor); }
 .alliance-healer { background-color: var(--healerColor); }
-.alliance-spiritbrother { background-color: var(--spiritBrotherColor); }
+.alliance-spirit { background-color: var(--spiritColor); }
 .alliance-summoner { background-color: var(--summonerColor); }
 .alliance-vigilant { background-color: var(--vigilantColor); }
 .alliance-void { background-color: var(--voidColor); }
@@ -402,17 +402,17 @@ body {
 .alliance-demon::before { background-image: url('synergy_icons/demon_psd.png'); }
 .alliance-dragon::before { background-image: url('synergy_icons/dragon_psd.png'); }
 .alliance-human::before { background-image: url('synergy_icons/human_psd.png'); }
-.alliance-naga::before { background-image: url('synergy_icons/naga_psd.png'); }
+.alliance-scaled::before { background-image: url('synergy_icons/scaled_psd.png'); }
 .alliance-troll::before { background-image: url('synergy_icons/troll_psd.png'); }
-.alliance-undead::before { background-image: url('synergy_icons/undead_psd.png'); }
+.alliance-heartless::before { background-image: url('synergy_icons/heartless_psd.png'); }
 .alliance-hunter::before { background-image: url('synergy_icons/hunter_psd.png'); }
 .alliance-knight::before { background-image: url('synergy_icons/knight_psd.png'); }
 .alliance-mage::before { background-image: url('synergy_icons/mage_psd.png'); }
 .alliance-warrior::before { background-image: url('synergy_icons/warrior_psd.png'); }
 .alliance-champion::before { background-image: url('synergy_icons/champion_psd.png'); }
-.alliance-brutal::before { background-image: url('synergy_icons/brutal_psd.png'); }
+.alliance-brute::before { background-image: url('synergy_icons/brute_psd.png'); }
 .alliance-healer::before { background-image: url('synergy_icons/healer_psd.png'); }
-.alliance-spiritbrother::before { background-image: url('synergy_icons/spiritbrother_psd.png'); }
+.alliance-spirit::before { background-image: url('synergy_icons/spirit_psd.png'); }
 .alliance-summoner::before { background-image: url('synergy_icons/summoner_psd.png'); }
 .alliance-vigilant::before { background-image: url('synergy_icons/vigilant_psd.png'); }
 .alliance-void::before { background-image: url('synergy_icons/void_psd.png'); }
@@ -633,20 +633,100 @@ body {
 
 .alliance-count {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
     background-color: var(--bg-tertiary);
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
+    padding: 8px;
+    border-radius: 4px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.alliance-count.has-bonus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
 }
 
 .alliance-count .alliance-indicator {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
 }
 
-.alliance-count span {
+.alliance-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.alliance-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.alliance-name {
     color: var(--text-primary);
     font-size: 14px;
+    font-weight: 500;
+}
+
+.tier-indicators {
+    display: flex;
+    gap: 6px;
+}
+
+.tier-group {
+    display: flex;
+    gap: 2px;
+}
+
+.tier-indicator {
+    width: 8px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1px;
+}
+
+/* Alliance-specific background colors for active indicators */
+.tier-indicator.active.alliance-warrior-bg { background-color: var(--warriorColor); border-color: var(--warriorColor); }
+.tier-indicator.active.alliance-beast-bg { background-color: var(--beastColor); border-color: var(--beastColor); }
+.tier-indicator.active.alliance-demon-bg { background-color: var(--demonColor); border-color: var(--demonColor); }
+.tier-indicator.active.alliance-dragon-bg { background-color: var(--dragonColor); border-color: var(--dragonColor); }
+.tier-indicator.active.alliance-human-bg { background-color: var(--humanColor); border-color: var(--humanColor); }
+.tier-indicator.active.alliance-scaled-bg { background-color: var(--scaledColor); border-color: var(--scaledColor); }
+.tier-indicator.active.alliance-troll-bg { background-color: var(--trollColor); border-color: var(--trollColor); }
+.tier-indicator.active.alliance-heartless-bg { background-color: var(--heartlessColor); border-color: var(--heartlessColor); }
+.tier-indicator.active.alliance-hunter-bg { background-color: var(--hunterColor); border-color: var(--hunterColor); }
+.tier-indicator.active.alliance-knight-bg { background-color: var(--knightColor); border-color: var(--knightColor); }
+.tier-indicator.active.alliance-mage-bg { background-color: var(--mageColor); border-color: var(--mageColor); }
+.tier-indicator.active.alliance-champion-bg { background-color: var(--championColor); border-color: var(--championColor); }
+.tier-indicator.active.alliance-brute-bg { background-color: var(--bruteColor); border-color: var(--bruteColor); }
+.tier-indicator.active.alliance-healer-bg { background-color: var(--healerColor); border-color: var(--healerColor); }
+.tier-indicator.active.alliance-spirit-bg { background-color: var(--spiritColor); border-color: var(--spiritColor); }
+.tier-indicator.active.alliance-summoner-bg { background-color: var(--summonerColor); border-color: var(--summonerColor); }
+.tier-indicator.active.alliance-vigilant-bg { background-color: var(--vigilantColor); border-color: var(--vigilantColor); }
+.tier-indicator.active.alliance-void-bg { background-color: var(--voidColor); border-color: var(--voidColor); }
+.tier-indicator.active.alliance-fallen-bg { background-color: var(--fallenColor); border-color: var(--fallenColor); }
+.tier-indicator.active.alliance-wild-bg { background-color: var(--wildColor); border-color: var(--wildColor); }
+.tier-indicator.active.alliance-swordsman-bg { background-color: var(--swordsmanColor); border-color: var(--swordsmanColor); }
+.tier-indicator.active.alliance-rogue-bg { background-color: var(--rogueColor); border-color: var(--rogueColor); }
+.tier-indicator.active.alliance-poisoner-bg { background-color: var(--poisonerColor); border-color: var(--poisonerColor); }
+.tier-indicator.active.alliance-magus-bg { background-color: var(--magusColor); border-color: var(--magusColor); }
+.tier-indicator.active.alliance-brawny-bg { background-color: var(--brawnyColor); border-color: var(--brawnyColor); }
+.tier-indicator.active.alliance-savage-bg { background-color: var(--savageColor); border-color: var(--savageColor); }
+.tier-indicator.active.alliance-assassin-bg { background-color: var(--assassinColor); border-color: var(--assassinColor); }
+
+.alliance-bonus {
+    color: var(--text-secondary);
+    font-size: 12px;
+    line-height: 1.4;
+    padding: 4px 0;
+}
+
+.alliance-bonus.active {
+    color: #4CAF50;
 } 

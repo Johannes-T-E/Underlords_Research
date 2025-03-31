@@ -1,27 +1,81 @@
 // Load hero data
 let heroes = null;
 let selectedHero = null;
+let allianceData = null;
+let allianceDataLoaded = false;
 
 // Board state tracking
 let boardState = {
     heroes: new Map(), // Map of cell index to hero data
     allianceCounts: new Map(), // Map of alliance to count
+    activeBonuses: new Map(), // Map of alliance to current bonus tier
 };
 
-// Function to update alliance counts
+// Function to normalize alliance name
+function normalizeAllianceName(name) {
+    // Convert to lowercase and remove any special characters
+    return name.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+// Function to update alliance counts and bonuses
 function updateAllianceCounts() {
-    // Reset alliance counts
+    if (!allianceDataLoaded) {
+        console.log('Alliance data not loaded yet');
+        return;
+    }
+    
+    // Reset alliance counts and bonuses
     boardState.allianceCounts.clear();
+    boardState.activeBonuses.clear();
+    
+    // Create a map to track unique heroes per alliance
+    const uniqueHeroesPerAlliance = new Map();
     
     // Count alliances from placed heroes
     boardState.heroes.forEach(heroData => {
         const alliances = heroData.hero.keywords.split(' ');
+        const heroId = heroData.hero.id;
+        
         alliances.forEach(alliance => {
-            boardState.allianceCounts.set(
-                alliance,
-                (boardState.allianceCounts.get(alliance) || 0) + 1
-            );
+            // Normalize the alliance name
+            const normalizedAlliance = normalizeAllianceName(alliance);
+            
+            // Initialize the set for this alliance if it doesn't exist
+            if (!uniqueHeroesPerAlliance.has(normalizedAlliance)) {
+                uniqueHeroesPerAlliance.set(normalizedAlliance, new Set());
+            }
+            
+            // Only count the hero if we haven't seen this hero ID for this alliance
+            if (!uniqueHeroesPerAlliance.get(normalizedAlliance).has(heroId)) {
+                uniqueHeroesPerAlliance.get(normalizedAlliance).add(heroId);
+                boardState.allianceCounts.set(
+                    normalizedAlliance,
+                    (boardState.allianceCounts.get(normalizedAlliance) || 0) + 1
+                );
+            }
         });
+    });
+    
+    // Calculate active bonuses for each alliance
+    boardState.allianceCounts.forEach((count, alliance) => {
+        // Find the alliance info by matching normalized names
+        const allianceInfo = Object.entries(allianceData).find(([key]) => 
+            normalizeAllianceName(key) === alliance
+        )?.[1];
+
+        if (allianceInfo) {
+            // Find the highest tier we qualify for
+            let activeTier = null;
+            for (let i = allianceInfo.tiers.length - 1; i >= 0; i--) {
+                if (count >= allianceInfo.tiers[i].units_required) {
+                    activeTier = allianceInfo.tiers[i];
+                    break;
+                }
+            }
+            if (activeTier) {
+                boardState.activeBonuses.set(alliance, activeTier);
+            }
+        }
     });
     
     // Update alliance display
@@ -30,6 +84,11 @@ function updateAllianceCounts() {
 
 // Function to update alliance display
 function updateAllianceDisplay() {
+    if (!allianceDataLoaded) {
+        console.log('Alliance data not loaded yet');
+        return;
+    }
+    
     const allianceDisplay = document.getElementById('allianceDisplay');
     if (!allianceDisplay) return;
     
@@ -38,10 +97,69 @@ function updateAllianceDisplay() {
     
     boardState.allianceCounts.forEach((count, alliance) => {
         if (count > 0) {
+            // Find the alliance info by matching normalized names
+            const allianceInfo = Object.entries(allianceData).find(([key]) => 
+                normalizeAllianceName(key) === alliance
+            )?.[1];
+
+            if (!allianceInfo) {
+                console.log(`No alliance info found for ${alliance}`);
+                return; // Skip if alliance info not found
+            }
+            
+            // Get the original alliance name for display
+            const originalAllianceName = Object.keys(allianceData).find(key => 
+                normalizeAllianceName(key) === alliance
+            ) || alliance;
+
+            // Create tier indicators
+            let tierIndicators = '';
+            const totalTiers = allianceInfo.tiers.length;
+            
+            // For each tier
+            for (let tierIndex = 0; tierIndex < totalTiers; tierIndex++) {
+                const tier = allianceInfo.tiers[tierIndex];
+                const nextTierUnits = tierIndex < totalTiers - 1 ? 
+                    allianceInfo.tiers[tierIndex + 1].units_required : 
+                    tier.units_required;
+                const currentTierUnits = tier.units_required;
+                
+                // Calculate spots needed for this tier
+                const spotsInTier = currentTierUnits - (tierIndex > 0 ? allianceInfo.tiers[tierIndex - 1].units_required : 0);
+                
+                tierIndicators += '<div class="tier-group">';
+                // Add spots for this tier
+                for (let spot = 0; spot < spotsInTier; spot++) {
+                    // Calculate which number unit this spot represents (1-based)
+                    const unitNumber = (tierIndex > 0 ? allianceInfo.tiers[tierIndex - 1].units_required : 0) + spot + 1;
+                    // Spot is active if we have enough units to fill it
+                    const isSpotActive = count >= unitNumber;
+                    tierIndicators += `<div class="tier-indicator ${isSpotActive ? 'active' : ''} alliance-${alliance}-bg"></div>`;
+                }
+                tierIndicators += '</div>';
+            }
+            
+            // Get the active bonus text
+            let bonusText = '';
+            for (let i = totalTiers - 1; i >= 0; i--) {
+                if (count >= allianceInfo.tiers[i].units_required) {
+                    bonusText = allianceInfo.tiers[i].bonus;
+                    break;
+                }
+            }
+            
             html += `
                 <div class="alliance-count">
                     <div class="alliance-indicator alliance-${alliance}"></div>
-                    <span>${alliance}: ${count}</span>
+                    <div class="alliance-info">
+                        <div class="alliance-header">
+                            <span class="alliance-name">${originalAllianceName}</span>
+                            <div class="tier-indicators">
+                                ${tierIndicators}
+                            </div>
+                        </div>
+                        <div class="alliance-bonus active">${bonusText}</div>
+                    </div>
                 </div>
             `;
         }
@@ -50,6 +168,22 @@ function updateAllianceDisplay() {
     html += '</div>';
     allianceDisplay.innerHTML = html;
 }
+
+// Fetch alliance data
+fetch('synergy_icons/research_alliances/alliances_data_final.json')
+    .then(response => response.json())
+    .then(data => {
+        allianceData = data;
+        allianceDataLoaded = true;
+        console.log('Alliance data loaded successfully');
+        // Update alliance display if we have heroes on the board
+        if (boardState.heroes.size > 0) {
+            updateAllianceCounts();
+        }
+    })
+    .catch(error => {
+        console.error('Error loading alliance data:', error);
+    });
 
 // Fetch hero data from JSON file
 fetch('underlords_heroes.json')
@@ -290,6 +424,19 @@ function handleGridDragStart(e) {
 function handleGridDragEnd(e) {
     if (!e.target.classList.contains('hero-piece')) return;
     e.target.classList.remove('dragging');
+    
+    // If the drop was not successful (outside valid drop targets)
+    if (e.dataTransfer.dropEffect === 'none') {
+        const cell = e.target.parentElement;
+        removeHero(cell);
+        
+        // If this was the selected hero, clear the selection
+        if (selectedHero && selectedHero.cell === cell) {
+            selectedHero = null;
+            updateControls();
+            updateLevelControls();
+        }
+    }
 }
 
 // Update control panel with selected hero info
@@ -510,4 +657,46 @@ function filterHeroList() {
         
         card.style.display = allianceMatch && tierMatch ? 'flex' : 'none';
     });
+}
+
+// Add this near the top of the file with other event listeners
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Delete' && selectedHero) {
+        removeHero(selectedHero.cell);
+        selectedHero = null;
+        updateControls();
+        updateLevelControls();
+    }
+});
+
+// Add this to handle dragging outside the grid
+document.addEventListener('dragover', function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener('drop', function(e) {
+    // Only handle drops outside the grid
+    if (!e.target.closest('#heroGrid')) {
+        const sourceIndex = e.dataTransfer.getData('source-index');
+        if (sourceIndex) {
+            const sourceCell = document.querySelector(`[data-index="${sourceIndex}"]`);
+            removeHero(sourceCell);
+        }
+    }
+});
+
+// Add this new function to handle hero removal
+function removeHero(cell) {
+    if (!cell || !cell.classList.contains('occupied')) return;
+    
+    // Clear the cell
+    cell.classList.remove('occupied');
+    cell.innerHTML = '';
+    
+    // Remove from board state
+    const cellIndex = cell.dataset.index;
+    boardState.heroes.delete(cellIndex);
+    
+    // Update alliance counts
+    updateAllianceCounts();
 } 

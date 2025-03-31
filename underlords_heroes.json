@@ -52,7 +52,7 @@
           "#dac_hero_hint_melee",
           "#dac_hero_hint_wide_debuff"
         ],
-        "keywords": "brutal rogue poisoner",
+        "keywords": "brute rogue poisoner",
         "magicResist": 0,
         "maxmana": 100,
         "model": "models/heroes/alchemist/alchemist.vmdl",
@@ -125,7 +125,7 @@
           "#dac_hero_hint_melee",
           "#dac_hero_hint_culling_blade"
         ],
-        "keywords": "brawny brutal",
+        "keywords": "brawny brute",
         "magicResist": 0,
         "maxmana": 50,
         "model": "models/heroes/axe/axe.vmdl",
@@ -326,7 +326,7 @@
           "#dac_hero_hint_melee",
           "#dac_hero_hint_doom_silence"
         ],
-        "keywords": "demon brutal",
+        "keywords": "demon brute",
         "magicResist": 0,
         "maxmana": 100,
         "model": "models/heroes/doom/doom.vmdl",
@@ -392,7 +392,7 @@
           "#dac_hero_hint_ranged",
           "#dac_hero_hint_nearby_allies_attack_faster"
         ],
-        "keywords": "undead vigilant hunter",
+        "keywords": "heartless vigilant hunter",
         "magicResist": 0,
         "maxmana": 100,
         "model": "models/heroes/drow/drow_base.vmdl",
@@ -767,7 +767,7 @@
           "#dac_hero_hint_ranged",
           "#dac_hero_hint_group_stun"
         ],
-        "keywords": "naga hunter",
+        "keywords": "scaled hunter",
         "magicResist": 10,
         "maxmana": 100,
         "model": "models/heroes/medusa/medusa.vmdl",
@@ -984,7 +984,7 @@
           "#dac_hero_hint_melee",
           "#dac_hero_hint_single_target_armor_down"
         ],
-        "keywords": "naga warrior",
+        "keywords": "scaled warrior",
         "magicResist": 0,
         "maxmana": 75,
         "model": "models/heroes/slardar/slardar.vmdl",
@@ -1019,7 +1019,7 @@
           "#dac_hero_hint_jumping_movement",
           "#dac_hero_hint_ramping_damage"
         ],
-        "keywords": "naga assassin",
+        "keywords": "scaled assassin",
         "magicResist": 0,
         "maxmana": 100,
         "model": "models/heroes/slark/slark.vmdl",
@@ -1127,7 +1127,7 @@
           "#dac_hero_hint_melee",
           "#dac_hero_hint_group_stun"
         ],
-        "keywords": "naga warrior",
+        "keywords": "scaled warrior",
         "magicResist": 0,
         "maxmana": 100,
         "model": "models/heroes/tidehunter/tidehunter.vmdl",
@@ -1258,7 +1258,7 @@
           "#dac_hero_hint_ranged",
           "#dac_hero_hint_venomancer"
         ],
-        "keywords": "naga summoner poisoner",
+        "keywords": "scaled summoner poisoner",
         "magicResist": 20,
         "maxmana": 80,
         "model": "models/heroes/venomancer/venomancer.vmdl",
@@ -1363,7 +1363,7 @@
           "#dac_hero_hint_tanky",
           "#dac_hero_hint_hooks_enemies"
         ],
-        "keywords": "undead warrior",
+        "keywords": "heartless warrior",
         "magicResist": 5,
         "maxmana": 100,
         "model": "models/heroes/pudge/pudge.vmdl",
@@ -1625,7 +1625,7 @@
           "#dac_hero_hint_ranged",
           "#dac_hero_hint_high_single_target_damage"
         ],
-        "keywords": "undead demon",
+        "keywords": "heartless demon",
         "magicResist": 0,
         "maxmana": 100,
         "model": "models/heroes/shadow_demon/shadow_demon.vmdl",
@@ -1658,7 +1658,7 @@
           "#dac_hero_hint_melee",
           "#dac_hero_hint_life_stealer_attack"
         ],
-        "keywords": "undead brutal",
+        "keywords": "heartless brute",
         "magicResist": 0,
         "maxmana": 75,
         "model": "models/heroes/life_stealer/life_stealer.vmdl",
@@ -1692,7 +1692,7 @@
           "#dac_hero_hint_ranged",
           "#dac_hero_hint_line_damage"
         ],
-        "keywords": "spiritbrother mage",
+        "keywords": "spirit mage",
         "magicResist": 0,
         "maxmana": 40,
         "model": "models/heroes/storm_spirit/storm_spirit.vmdl",
@@ -1730,7 +1730,7 @@
           "#dac_hero_hint_teleport_movement",
           "#dac_hero_hint_close_aoe_damage"
         ],
-        "keywords": "spiritbrother assassin swordsman",
+        "keywords": "spirit assassin swordsman",
         "magicResist": 0,
         "maxmana": 100,
         "model": "models/heroes/ember_spirit/ember_spirit.vmdl",
@@ -1766,7 +1766,7 @@
           "#dac_hero_hint_tanky",
           "#dac_hero_hint_silences"
         ],
-        "keywords": "spiritbrother warrior",
+        "keywords": "spirit warrior",
         "magicResist": 0,
         "maxmana": 100,
         "model": "models/heroes/earth_spirit/earth_spirit.vmdl",
@@ -1797,7 +1797,7 @@
           "#dac_hero_hint_melee",
           "#dac_hero_hint_void_spirit"
         ],
-        "keywords": "void spiritbrother",
+        "keywords": "void spirit",
         "magicResist": 0,
         "maxmana": 100,
         "model": "models/heroes/void_spirit/void_spirit.vmdl",
@@ -1866,7 +1866,7 @@
           "#dac_hero_hint_ranged",
           "#dac_hero_hint_aoe_damage"
         ],
-        "keywords": "fallen undead",
+        "keywords": "fallen heartless",
         "magicResist": 0,
         "maxmana": 100,
         "model": "models/heroes/death_prophet/death_prophet.vmdl",
@@ -1899,7 +1899,7 @@
         "hintWords": [
           "#dac_hero_hint_ranged"
         ],
-        "keywords": "fallen undead",
+        "keywords": "fallen heartless",
         "magicResist": 0,
         "maxmana": 60,
         "model": "models/heroes/vengeful/vengeful.vmdl",
@@ -1965,7 +1965,7 @@
           "#dac_hero_hint_melee",
           "#dac_hero_hint_tanky"
         ],
-        "keywords": "savage brutal",
+        "keywords": "savage brute",
         "magicResist": 0,
         "maxmana": 100,
         "model": "models/heroes/spirit_breaker/spirit_breaker.vmdl",
