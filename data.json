@@ -45,7 +45,37 @@
       "3": 5,
       "4": 6,
       "5-40": 7
-    }
+    },
 
-  }
+    "numberOfCardsPerHeroPerTier": {
+        "1": 30,
+        "2": 20,
+        "3": 18,
+        "4": 12,
+        "5": 10
+    },
+
+    "streakRules": {
+        "winStreak": {
+            "maxRounds": 8,
+            "tiers": [
+                { "rounds": 3, "gold": 1 },
+                { "rounds": 5, "gold": 2 },
+                { "rounds": 7, "gold": 3 },
+                { "rounds": 8, "gold": 4 }
+            ]
+        },
+        "lossStreak": {
+            "tiers": [
+                { "rounds": 3, "gold": 1 },
+                { "rounds": 5, "gold": 2 }
+            ]
+        },
+        "interest": {
+            "goldPerInterval": 10,
+            "goldReward": 1,
+            "maxReward": 3
+        }
+    }
+}
   

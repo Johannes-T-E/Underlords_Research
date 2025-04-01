@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Underlords Shop Simulator</title>
+    <link rel="stylesheet" href="heroshop_styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <div class="level-controls">
+                <button id="decreaseLevel" class="level-btn">-</button>
+                <span id="playerLevel">Level 1</span>
+                <button id="increaseLevel" class="level-btn">+</button>
+            </div>
+            <button id="rerollBtn">🎲 Reroll Shop</button>
+        </div>
+        <div id="deckStatus"></div>
+        <div class="shop-container">
+            <h3>🏪 Current Shop</h3>
+            <div id="shop" class="shop"></div>
+        </div>
+
+        <div class="player-bench">
+            <h3>👥 Your Bench</h3>
+            <div id="bench"></div>
+        </div>
+    </div>
+    <script src="heroshop_script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,724 @@
+:root {
+    --bg-dark: #1a1a1a;
+    --bg-card: #2a2a2a;
+    --gold: #ffd700;
+    --cost-1-color: #ffffff;
+    --cost-2-color: #1ded21;
+    --cost-3-color: #3040f0e6;
+    --cost-4-color: #9C27B0;
+    --cost-5-color: #FF9800;
+    --bg-secondary: #333;
+    --text-primary: #ffffff;
+    --text-secondary: #aaa;
+    --border-color: #444;
+    --hover-color: #555;
+    --beastColor: #b2411a;
+    --demonColor: #9e1d74;
+    --dragonColor: #ff511b;
+    --dwarfColor: #c29315;
+    --elementColor: teal;
+    --elfColor: #5f97d0;
+    --goblinColor: #b8c72c;
+    --humanColor: #02c89c;
+    --scaledColor: #483fa2;
+    --brawnyColor: #961f1c;
+    --savageColor: #a61b1b;
+    --trollColor: #9e6e4a;
+    --heartlessColor: #7fa09a;
+    --assassinColor: #5a3d68;
+    --demonhunterColor: #8b008b;
+    --druidColor: #2e6340;
+    --hunterColor: #ff7652;
+    --knightColor: #ffe327;
+    --mageColor: #58dde9;
+    --mechColor: #fb8e14;
+    --inventorColor: #fb8e14;
+    --shamanColor: #6c985b;
+    --warlockColor: #e46ed5;
+    --warriorColor: #1c67b4;
+    --insectColor: #4d69ff;
+    --championColor: #ac89e0;
+    --bruteColor: #8b7765;
+    --healerColor: #4fd565;
+    --spiritColor: #636aa9;
+    --summonerColor: #f17214;
+    --vigilantColor: #5f97d0;
+    --voidColor: #695d6a;
+    --fallenColor: #e46ed5;
+    --wildColor: #2e6340;
+    --swordsmanColor: #c29315;
+    --rogueColor: #961f1c;
+    --poisonerColor: teal;
+    --magusColor: #4d69ff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-dark);
+    color: #ffffff;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    background-image: linear-gradient(45deg, #1a1a1a 25%, #222 25%, #222 50%, #1a1a1a 50%, #1a1a1a 75%, #222 75%, #222 100%);
+    background-size: 56.57px 56.57px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Controls Section */
+.controls {
+    background: rgba(51, 51, 51, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.controls select {
+    padding: 10px 20px;
+    background-color: var(--bg-card);
+    color: white;
+    border: 1px solid var(--gold);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.controls select:hover {
+    background-color: #3a3a3a;
+}
+
+.controls button {
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #ffd700, #ffb300);
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.controls button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
+#deckStatus {
+    background: var(--bg-card);
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Shop Section */
+.shop {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.hero-card {
+    background: var(--bg-card);
+    border-radius: 10px;
+    padding: 0;
+    position: relative;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    overflow: hidden;
+}
+
+.hero-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 
+                var(--current-border-color, 0 0 0 2px var(--border-color));
+}
+
+.hero-portrait {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.hero-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.hero-info {
+    padding: 15px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), var(--bg-card));
+}
+
+.star-level {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.8));
+}
+
+.star-level img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.hero-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 5px 0;
+}
+
+.progress-star {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: rgba(0,0,0,0.5);
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin: 2px 0;
+}
+
+.progress-star img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.hero-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    margin-bottom: 5px;
+}
+
+.hero-cost {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #00000085;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.hero-keywords {
+    font-size: 14px;
+    color: #aaa;
+    margin-top: 5px;
+}
+
+.keyword {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin: 2px;
+}
+
+.buy-btn, .sell-btn {
+    display: none;
+}
+
+/* Cost border colors */
+.cost-1 { 
+    --current-border-color: 0 0 0 2px var(--cost-1-color);
+    box-shadow: 0 0 0 2px var(--cost-1-color); 
+}
+.cost-2 { 
+    --current-border-color: 0 0 0 2px var(--cost-2-color);
+    box-shadow: 0 0 0 2px var(--cost-2-color); 
+}
+.cost-3 { 
+    --current-border-color: 0 0 0 2px var(--cost-3-color);
+    box-shadow: 0 0 0 2px var(--cost-3-color); 
+}
+.cost-4 { 
+    --current-border-color: 0 0 0 2px var(--cost-4-color);
+    box-shadow: 0 0 0 2px var(--cost-4-color); 
+}
+.cost-5 { 
+    --current-border-color: 0 0 0 2px var(--cost-5-color);
+    box-shadow: 0 0 0 2px var(--cost-5-color); 
+}
+
+.empty-slot {
+    background: rgba(0,0,0,0.3);
+    border: 2px dashed #444;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+.empty-slot-text {
+    color: #666;
+    font-style: italic;
+}
+
+.hero-card.empty-slot:hover {
+    transform: none;
+    cursor: default;
+}
+
+.buy-btn[disabled] {
+    background: #666;
+    cursor: not-allowed;
+}
+
+/* Star colors */
+.star-1 { color: #ffffff; }
+.star-2 { color: #00ff00; }
+.star-3 { color: #ff00ff; }
+
+/* Player Bench */
+.player-bench {
+    background: rgba(51, 51, 51, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.player-bench h3 {
+    margin-top: 0;
+    color: var(--gold);
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+#bench {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+    padding: 15px 0;
+}
+
+/* Animations */
+@keyframes cardPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.hero-card.new-card {
+    animation: cardPulse 0.5s ease;
+}
+
+/* Add these styles */
+.deck-status-header {
+    background-color: var(--bg-secondary);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+}
+
+.total-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 16px;
+    color: var(--text-primary);
+}
+
+.effective-pool {
+    color: var(--text-secondary);
+}
+
+.tier-status-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.tier-status {
+    background-color: var(--bg-secondary);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    flex: 1;
+    min-width: 180px;
+}
+
+.tier-status:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+}
+
+.tier-header {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tier-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 4px;
+    background-color: var(--bg-tertiary);
+    border-radius: 4px;
+}
+
+.tier-stat {
+    color: var(--text-secondary);
+    font-size: 13px;
+    padding: 4px 8px;
+}
+
+/* Cost-based colors for tiers */
+.tier-1 { border-left: 4px solid #ffffff; }
+.tier-2 { border-left: 4px solid #4CAF50; }
+.tier-3 { border-left: 4px solid #2196F3; }
+.tier-4 { border-left: 4px solid #9C27B0; }
+.tier-5 { border-left: 4px solid #FFC107; }
+
+/* Update the animation to be more extreme */
+@keyframes upgradePulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 2px var(--gold), 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+    25% {
+        transform: scale(1.05) translateY(-5px);
+        box-shadow: 0 0 0 4px #fff, 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+    50% {
+        transform: scale(1.02) translateY(-2px);
+        box-shadow: 0 0 0 3px var(--gold), 0 0 30px rgba(255, 215, 0, 0.7);
+    }
+    75% {
+        transform: scale(1.05) translateY(-5px);
+        box-shadow: 0 0 0 4px #fff, 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 2px var(--gold), 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+}
+
+.hero-card.potential-upgrade {
+    animation: upgradePulse 1.2s ease-in-out infinite;
+    position: relative;
+    z-index: 10; /* Ensure the card appears above others */
+}
+
+/* Add a glowing background effect */
+.hero-card.potential-upgrade::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(45deg, 
+        rgba(255, 215, 0, 0.5),
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 215, 0, 0.5)
+    );
+    border-radius: 12px;
+    z-index: -1;
+    animation: backgroundGlow 1.2s ease-in-out infinite;
+}
+
+@keyframes backgroundGlow {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+}
+
+/* Make the upgrade button more noticeable too */
+.hero-card.potential-upgrade .buy-btn {
+    background: linear-gradient(45deg, #ffd700, #ff6b6b, #ffd700);
+    background-size: 200% 200%;
+    animation: gradientShift 1.2s ease-in-out infinite;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px;
+    font-size: 1.1em;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Update star styles */
+.star {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    margin: 0 2px;
+}
+
+.star::before {
+    content: '★';
+    position: absolute;
+    font-size: 24px;
+    line-height: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+/* Bronze star (1-star units) */
+.star-1::before {
+    background: linear-gradient(45deg, #cd7f32, #a0522d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 
+        2px 2px 2px rgba(0, 0, 0, 0.5),
+        0 0 4px rgba(205, 127, 50, 0.5);
+}
+
+/* Silver star (2-star units) */
+.star-2::before {
+    background: linear-gradient(45deg, #C0C0C0, #E8E8E8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 
+        2px 2px 2px rgba(0, 0, 0, 0.5),
+        0 0 4px rgba(192, 192, 192, 0.5);
+}
+
+/* Gold star (3-star units) */
+.star-3::before {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 
+        2px 2px 2px rgba(0, 0, 0, 0.5),
+        0 0 4px rgba(255, 215, 0, 0.5);
+}
+
+.key-hint {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--text-secondary);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 2;
+    border: 1px solid var(--border-color);
+}
+
+.hero-card:hover .key-hint {
+    background: rgba(255, 215, 0, 0.3);
+    color: var(--gold);
+    border-color: var(--gold);
+}
+
+.drawable-pool {
+    color: var(--gold);
+    font-weight: bold;
+}
+
+.tier-locked {
+    opacity: 0.6;
+    position: relative;
+}
+
+.tier-locked::after {
+    content: '🔒';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+}
+
+/* Add these styles */
+.level-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.level-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.level-btn:hover:not(:disabled) {
+    background: var(--hover-color);
+    transform: scale(1.1);
+}
+
+.level-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#playerLevel {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-primary);
+    min-width: 80px;
+    text-align: center;
+}
+
+/* Add cursor styles */
+.hero-card:not(.disabled) {
+    cursor: pointer;
+}
+
+.hero-card.disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Selection styles for bench cards */
+.bench-card.selected {
+    outline: 3px solid var(--gold);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(255, 215, 0, 0.3);
+}
+
+/* Hover effects */
+.hero-card:not(.disabled):hover {
+    transform: translateY(-5px);
+}
+
+.bench-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Alliance Indicators */
+.alliance-indicators {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    margin: 8px 0;
+    padding: 0 6px;
+    align-items: center;
+}
+
+.alliance-indicator {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+.alliance-indicator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Alliance Color Classes */
+.alliance-beast { background-color: var(--beastColor); }
+.alliance-demon { background-color: var(--demonColor); }
+.alliance-dragon { background-color: var(--dragonColor); }
+.alliance-human { background-color: var(--humanColor); }
+.alliance-scaled { background-color: var(--scaledColor); }
+.alliance-troll { background-color: var(--trollColor); }
+.alliance-heartless { background-color: var(--heartlessColor); }
+.alliance-hunter { background-color: var(--hunterColor); }
+.alliance-knight { background-color: var(--knightColor); }
+.alliance-mage { background-color: var(--mageColor); }
+.alliance-warrior { background-color: var(--warriorColor); }
+.alliance-champion { background-color: var(--championColor); }
+.alliance-brute { background-color: var(--bruteColor); }
+.alliance-healer { background-color: var(--healerColor); }
+.alliance-spirit { background-color: var(--spiritColor); }
+.alliance-summoner { background-color: var(--summonerColor); }
+.alliance-vigilant { background-color: var(--vigilantColor); }
+.alliance-void { background-color: var(--voidColor); }
+.alliance-fallen { background-color: var(--fallenColor); }
+.alliance-wild { background-color: var(--wildColor); }
+.alliance-swordsman { background-color: var(--swordsmanColor); }
+.alliance-rogue { background-color: var(--rogueColor); }
+.alliance-poisoner { background-color: var(--poisonerColor); }
+.alliance-magus { background-color: var(--magusColor); }
+.alliance-brawny { background-color: var(--brawnyColor); }
+.alliance-savage { background-color: var(--savageColor); }
+.alliance-assassin { background-color: var(--assassinColor); }
+
+/* Alliance Image Overlays */
+.alliance-beast::before { background-image: url('synergy_icons/beast_psd.png'); }
+.alliance-demon::before { background-image: url('synergy_icons/demon_psd.png'); }
+.alliance-dragon::before { background-image: url('synergy_icons/dragon_psd.png'); }
+.alliance-human::before { background-image: url('synergy_icons/human_psd.png'); }
+.alliance-scaled::before { background-image: url('synergy_icons/scaled_psd.png'); }
+.alliance-troll::before { background-image: url('synergy_icons/troll_psd.png'); }
+.alliance-heartless::before { background-image: url('synergy_icons/heartless_psd.png'); }
+.alliance-hunter::before { background-image: url('synergy_icons/hunter_psd.png'); }
+.alliance-knight::before { background-image: url('synergy_icons/knight_psd.png'); }
+.alliance-mage::before { background-image: url('synergy_icons/mage_psd.png'); }
+.alliance-warrior::before { background-image: url('synergy_icons/warrior_psd.png'); }
+.alliance-champion::before { background-image: url('synergy_icons/champion_psd.png'); }
+.alliance-brute::before { background-image: url('synergy_icons/brute_psd.png'); }
+.alliance-healer::before { background-image: url('synergy_icons/healer_psd.png'); }
+.alliance-spirit::before { background-image: url('synergy_icons/spirit_psd.png'); }
+.alliance-summoner::before { background-image: url('synergy_icons/summoner_psd.png'); }
+.alliance-vigilant::before { background-image: url('synergy_icons/vigilant_psd.png'); }
+.alliance-void::before { background-image: url('synergy_icons/void_psd.png'); }
+.alliance-fallen::before { background-image: url('synergy_icons/fallen_psd.png'); }
+.alliance-wild::before { background-image: url('synergy_icons/wild_psd.png'); }
+.alliance-swordsman::before { background-image: url('synergy_icons/swordsman_psd.png'); }
+.alliance-rogue::before { background-image: url('synergy_icons/rogue_psd.png'); }
+.alliance-poisoner::before { background-image: url('synergy_icons/poisoner_psd.png'); }
+.alliance-magus::before { background-image: url('synergy_icons/magus_psd.png'); }
+.alliance-brawny::before { background-image: url('synergy_icons/brawny_psd.png'); }
+.alliance-savage::before { background-image: url('synergy_icons/savage_psd.png'); }
+.alliance-assassin::before { background-image: url('synergy_icons/assassin_psd.png'); }
